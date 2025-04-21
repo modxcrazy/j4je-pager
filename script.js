@@ -3,13 +3,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Firebase Configuration
     // ======================
     const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "YOUR_AUTH_DOMAIN",
-        databaseURL: "YOUR_DATABASE_URL",
-        projectId: "YOUR_PROJECT_ID",
-        storageBucket: "YOUR_STORAGE_BUCKET",
-        messagingSenderId: "YOUR_SENDER_ID",
-        appId: "YOUR_APP_ID"
+        apiKey: "AIzaSyBWc2uI9P_r1O91umKBs_2HwZRqZjW40v8",
+        authDomain: "j4jegamer-efd7b.firebaseapp.com",
+        projectId: "j4jegamer-efd7b",
+        storageBucket: "j4jegamer-efd7b.firebasestorage.app",
+        messagingSenderId: "486568531489",
+        appId: "1:486568531489:web:6ef6ceb0b870fdb908b560",
     };
 
     // Initialize Firebase
