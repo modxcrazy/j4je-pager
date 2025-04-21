@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J4JE Gamer - Admin Panel</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <img src="images/logo.png" alt="J4JE Gamer Logo">
+                <h1>J4JE <span>Admin</span></h1>
+            </div>
+            
+            <nav class="admin-nav">
+                <ul>
+                    <li class="active"><a href="#dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+                    <li><a href="#videos"><i class="fa fa-video-camera"></i> Videos</a></li>
+                    <li><a href="#streams"><i class="fa fa-twitch"></i> Stream Schedule</a></li>
+                    <li><a href="#notifications"><i class="fa fa-bell"></i> Notifications</a></li>
+                    <li><a href="#analytics"><i class="fa fa-line-chart"></i> Analytics</a></li>
+                    <li><a href="#settings"><i class="fa fa-cog"></i> Settings</a></li>
+                </ul>
+            </nav>
+            
+            <div class="user-profile">
+                <img src="https://via.placeholder.com/40" alt="Admin Profile">
+                <div class="user-info">
+                    <span class="username">Admin User</span>
+                    <a href="#" class="logout">Logout <i class="fa fa-sign-out"></i></a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="admin-header">
+                <h2 id="page-title">Dashboard</h2>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search...">
+                        <i class="fa fa-search"></i>
+                    </div>
+                    <div class="notifications">
+                        <i class="fa fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <section id="dashboard-content" class="content-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-blue">
+                            <i class="fa fa-eye"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>24.5K</h3>
+                            <p>Total Views</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon bg-green">
+                            <i class="fa fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>12.8K</h3>
+                            <p>Subscribers</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon bg-orange">
+                            <i class="fa fa-video-camera"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>86</h3>
+                            <p>Videos</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon bg-purple">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>24</h3>
+                            <p>Upcoming Streams</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-row">
+                    <div class="chart-container">
+                        <h3>Views Analytics</h3>
+                        <div class="chart-placeholder">
+                            <!-- Chart will be rendered here -->
+                            <canvas id="viewsChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="recent-activity">
+                        <h3>Recent Activity</h3>
+                        <ul class="activity-list">
+                            <li>
+                                <i class="fa fa-video-camera activity-icon"></i>
+                                <div class="activity-details">
+                                    <p>New video uploaded: "EPIC WARZONE GAMEPLAY"</p>
+                                    <span class="activity-time">2 hours ago</span>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fa fa-user activity-icon"></i>
+                                <div class="activity-details">
+                                    <p>New subscriber: gamingfan123</p>
+                                    <span class="activity-time">5 hours ago</span>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fa fa-comment activity-icon"></i>
+                                <div class="activity-details">
+                                    <p>New comment on video: "This was amazing!"</p>
+                                    <span class="activity-time">1 day ago</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Videos Management Content -->
+            <section id="videos-content" class="content-section hidden">
+                <div class="section-header">
+                    <h3>Video Management</h3>
+                    <button class="btn btn-primary" id="add-video-btn">
+                        <i class="fa fa-plus"></i> Add New Video
+                    </button>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Thumbnail</th>
+                                <th>Title</th>
+                                <th>Views</th>
+                                <th>Date</th>
+                                <th>Duration</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="videos-table-body">
+                            <!-- Videos will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Add/Edit Video Modal -->
+                <div id="video-modal" class="modal hidden">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 id="modal-title">Add New Video</h4>
+                            <span class="close-modal">&times;</span>
+                        </div>
+                        <div class="modal-body">
+                            <form id="video-form">
+                                <input type="hidden" id="video-id">
+                                <div class="form-group">
+                                    <label for="video-title">Video Title</label>
+                                    <input type="text" id="video-title" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="video-url">YouTube URL</label>
+                                    <input type="url" id="video-url" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="video-thumbnail">Thumbnail URL</label>
+                                    <input type="url" id="video-thumbnail" required>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="video-views">Views</label>
+                                        <input type="text" id="video-views" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="video-date">Date</label>
+                                        <input type="text" id="video-date" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="video-duration">Duration</label>
+                                        <input type="text" id="video-duration" required>
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" class="btn btn-secondary close-modal-btn">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Save Video</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stream Schedule Content -->
+            <section id="streams-content" class="content-section hidden">
+                <div class="section-header">
+                    <h3>Stream Schedule</h3>
+                    <button class="btn btn-primary" id="add-stream-btn">
+                        <i class="fa fa-plus"></i> Add New Stream
+                    </button>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Date & Time</th>
+                                <th>Game</th>
+                                <th>Duration</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="streams-table-body">
+                            <!-- Streams will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Add/Edit Stream Modal -->
+                <div id="stream-modal" class="modal hidden">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 id="stream-modal-title">Add New Stream</h4>
+                            <span class="close-modal">&times;</span>
+                        </div>
+                        <div class="modal-body">
+                            <form id="stream-form">
+                                <input type="hidden" id="stream-id">
+                                <div class="form-group">
+                                    <label for="stream-game">Game Title</label>
+                                    <input type="text" id="stream-game" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="stream-date">Date</label>
+                                    <input type="date" id="stream-date" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="stream-time">Time</label>
+                                    <input type="time" id="stream-time" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="stream-duration">Duration (hours)</label>
+                                    <input type="number" id="stream-duration" min="1" max="12" value="3" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="stream-url">Stream URL</label>
+                                    <input type="url" id="stream-url" required>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="button" class="btn btn-secondary close-modal-btn">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Save Stream</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Other sections would go here -->
+        </main>
+    </div>
+
+    <script src="js/firebase.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
