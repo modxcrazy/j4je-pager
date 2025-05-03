@@ -1,124 +1,447 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>J4JE Gamer - Professional Gaming Content</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>J4JE Gamer - Official Website</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary-color: #ff4757;
+      --bg-color: #1e1e2f;
+      --text-color: #f1f1f1;
+      --accent-color: #2f3542;
+      --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-main);
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    header {
+      background-color: var(--accent-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    .logo h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .logo span {
+      color: var(--primary-color);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: var(--primary-color);
+    }
+
+    .subscribe-btn a {
+      background-color: var(--primary-color);
+      padding: 8px 16px;
+      border-radius: 4px;
+      color: white;
+      text-decoration: none;
+    }
+
+    .hero {
+      background: url('https://cdn.wallpapersafari.com/89/35/UlSkHw.jpg') no-repeat center center/cover;
+      height: 80vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      color: white;
+    }
+
+    .hero h2 {
+      font-size: 48px;
+      margin: 0 0 20px;
+    }
+
+    .hero span {
+      color: var(--primary-color);
+    }
+
+    .hero p {
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
+
+    .social-icons a {
+      font-size: 24px;
+      margin: 0 10px;
+      color: white;
+    }
+
+    .social-icons a:hover {
+      color: var(--primary-color);
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 32px;
+      margin: 40px 0 20px;
+      color: var(--primary-color);
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 0 20px 40px;
+    }
+
+    .video-grid iframe {
+      width: 100%;
+      height: 200px;
+      border: none;
+      border-radius: 8px;
+    }
+
+    .stream-section {
+      background-color: var(--accent-color);
+      padding: 40px 20px;
+    }
+
+    .stream-schedule {
+      display: flex;
+      justify-content: center;
+    }
+
+    .stream-card {
+      background-color: var(--bg-color);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .stream-card h3 {
+      margin-top: 0;
+      color: var(--primary-color);
+    }
+
+    .countdown {
+      font-size: 20px;
+      margin-top: 10px;
+    }
+
+    .notify-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: var(--primary-color);
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .about-section {
+      padding: 40px 20px;
+    }
+
+    .about-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .about-text {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .about-text p {
+      font-size: 18px;
+    }
+
+    .gaming-setup ul {
+      padding-left: 20px;
+    }
+
+    .about-image {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .about-image img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    footer {
+      background-color: var(--accent-color);
+      color: var(--text-color);
+      padding: 40px 20px 20px;
+    }
+
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .footer-logo h2 {
+      margin-bottom: 10px;
+    }
+
+    .footer-logo span {
+      color: var(--primary-color);
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: var(--text-color);
+      display: block;
+      margin: 5px 0;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary-color);
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .hero h2 {
+        font-size: 32px;
+      }
+
+      .stream-card {
+        width: 90%;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Header/Navbar -->
-    <header>
-        <div class="logo">
-            <img src="assets/images/logo.png" alt="J4JE Gamer Logo">
-            <h1>J4JE <span>Gamer</span></h1>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#videos">Videos</a></li>
-                <li><a href="#stream">Live Stream</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-        <div class="subscribe-btn">
-            <a href="https://youtube.com/J4JEGamer" target="_blank">Subscribe</a>
-        </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h2>Welcome to J4JE Gamer</h2>
-            <p>High-quality gaming content daily!</p>
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-youtube"></i></a>
-                <a href="#"><i class="fab fa-twitch"></i></a>
-                <a href="#"><i class="fab fa-discord"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-            </div>
-        </div>
-    </section>
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <img src="assets/images/logo.png" alt="Logo" />
+      <h1><span>J4JE</span> Gamer</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#videos">Videos</a></li>
+        <li><a href="#stream">Stream</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+    <div class="subscribe-btn">
+      <a href="https://www.youtube.com/@j4jegamer" target="_blank">Subscribe</a>
+    </div>
+  </header>
 
-    <!-- Featured Videos -->
-    <section id="videos" class="featured-videos">
-        <h2 class="section-title">Latest Videos</h2>
-        <div class="video-grid">
-            <!-- Video items will be added by JavaScript -->
-        </div>
-    </section>
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h2>Welcome to <span>J4JE Gamer</span></h2>
+      <p>Your one-stop destination for epic gaming streams and videos!</p>
+      <div class="social-icons">
+        <a href="https://youtube.com/@j4jegamer" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="https://t.me/j4jegamer" target="_blank"><i class="fab fa-telegram"></i></a>
+        <a href="#"><i class="fab fa-discord"></i></a>
+      </div>
+    </div>
+  </section>
 
-    <!-- Live Stream Section -->
-    <section id="stream" class="stream-section">
-        <h2 class="section-title">Live Stream Schedule</h2>
-        <div class="stream-schedule">
-            <div class="stream-card">
-                <h3>Today's Stream</h3>
-                <p class="game-title">Call of Duty: Warzone</p>
-                <p class="stream-time">8:00 PM - 11:00 PM EST</p>
-                <div class="countdown" id="countdown1"></div>
-                <button class="notify-btn">Notify Me</button>
-            </div>
-            <!-- Additional stream cards -->
-        </div>
-    </section>
+  <!-- Featured Videos -->
+  <section class="featured-videos" id="videos">
+    <h2 class="section-title">Featured Videos</h2>
+    <div class="video-grid"></div>
+  </section>
 
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <h2 class="section-title">About J4JE Gamer</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <p>Professional gamer creating high-quality content since 2020. Specializing in FPS and battle royale games with entertaining commentary and pro tips.</p>
-                <div class="gaming-setup">
-                    <h3>My Gaming Setup</h3>
-                    <ul>
-                        <li>CPU: Intel i9-13900K</li>
-                        <li>GPU: NVIDIA RTX 4090</li>
-                        <li>RAM: 32GB DDR5</li>
-                        <li>Streaming: Elgato 4K60 Pro</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="about-image">
-                <img src="assets/images/thumbnail.jpg" alt="Gaming Setup">
-            </div>
-        </div>
-    </section>
+  <!-- Stream Section -->
+  <section class="stream-section" id="stream">
+    <h2 class="section-title">Upcoming Stream</h2>
+    <div class="stream-schedule">
+      <div class="stream-card">
+        <h3>Stream Schedule</h3>
+        <p class="game-title">Game Loading...</p>
+        <p class="stream-time">Time Loading...</p>
+        <div class="countdown" id="countdown1">Loading countdown...</div>
+        <button class="notify-btn">Notify Me</button>
+      </div>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="footer-content">
-            <div class="footer-logo">
-                <h2>J4JE <span>Gamer</span></h2>
-                <p>Professional Gaming Content</p>
-            </div>
-            <div class="footer-links">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#videos">Videos</a></li>
-                    <li><a href="#stream">Stream</a></li>
-                    <li><a href="#about">About</a></li>
-                </ul>
-            </div>
-            <div class="footer-contact">
-                <h3>Contact</h3>
-                <p>Email: contact@j4jegamer.com</p>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                    <a href="#"><i class="fab fa-twitch"></i></a>
-                    <a href="#"><i class="fab fa-discord"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                </div>
-            </div>
+  <!-- About Section -->
+  <section class="about-section" id="about">
+    <h2 class="section-title">About J4JE Gamer</h2>
+    <div class="about-content">
+      <div class="about-text">
+        <p>
+          I'm J4JE Gamer, a passionate streamer and content creator. I bring you exciting gameplay, tutorials, and lots of fun! Subscribe and join my gaming community.
+        </p>
+        <div class="gaming-setup">
+          <h3>My Gaming Setup:</h3>
+          <ul>
+            <li>Processor: Ryzen 7 5800X</li>
+            <li>GPU: NVIDIA RTX 3070</li>
+            <li>Monitor: 144Hz Gaming Monitor</li>
+            <li>Keyboard: Mechanical RGB</li>
+          </ul>
         </div>
-        <div class="copyright">
-            <p>&copy; 2023 J4JE Gamer. All Rights Reserved.</p>
-        </div>
-    </footer>
+      </div>
+      <div class="about-image">
+        <img src="assets/images/setup.jpg" alt="Gaming Setup" />
+      </div>
+    </div>
+  </section>
 
-    <script src="script.js"></script>
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">
+        <h2><span>J4JE</span> Gamer</h2>
+        <p>Join the journey. Play hard, stream harder.</p>
+      </div>
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#videos">Videos</a></li>
+          <li><a href="#stream">Stream</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h3>Contact</h3>
+        <p>Email: j4jegamer@gmail.com</p>
+        <p>Telegram: @j4jegamer</p>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2025 J4JE Gamer. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Firebase & JS -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const firebaseConfig = {
+        apiKey: "AIzaSyDgD-ynQPGTF9W9C1pbguZjWhUbj6-ZcYQ",
+        authDomain: "j4jegamer.firebaseapp.com",
+        databaseURL: "https://j4jegamer-default-rtdb.firebaseio.com",
+        projectId: "j4jegamer",
+        storageBucket: "j4jegamer.appspot.com",
+        messagingSenderId: "248244713211",
+        appId: "1:248244713211:web:37476465b7e0aa9aa50fbd"
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.database();
+
+      const videoGrid = document.querySelector('.video-grid');
+      db.ref('videos').on('value', (snapshot) => {
+        videoGrid.innerHTML = '';
+        snapshot.forEach((child) => {
+          const { url } = child.val();
+          const iframe = document.createElement('iframe');
+          iframe.src = url;
+          iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+          iframe.allowFullscreen = true;
+          videoGrid.appendChild(iframe);
+        });
+      });
+
+      const gameTitle = document.querySelector('.game-title');
+      const streamTime = document.querySelector('.stream-time');
+      const countdownEl = document.getElementById('countdown1');
+
+      db.ref('streams/stream1').on('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          gameTitle.textContent = data.game;
+          streamTime.textContent = data.time;
+          startCountdown(data.time);
+        }
+      });
+
+      function startCountdown(dateString) {
+        const targetDate = new Date(dateString).getTime();
+        const update = () => {
+          const now = new Date().getTime();
+          const distance = targetDate - now;
+          if (distance < 0) {
+            countdownEl.textContent = "Stream started!";
+            return;
+          }
+          const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+          const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          const s = Math.floor((distance % (1000 * 60)) / 1000);
+          countdownEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
+        };
+        update();
+        setInterval(update, 1000);
+      }
+    });
+  </script>
 </body>
 </html>
