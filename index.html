@@ -8,53 +8,94 @@
   <style>
     :root {
       --primary-color: #ff4757;
+      --secondary-color: #ff6b81;
       --bg-color: #1e1e2f;
+      --dark-bg: #12121a;
       --text-color: #f1f1f1;
+      --text-muted: #b0b0b0;
       --accent-color: #2f3542;
+      --sidebar-width: 280px;
       --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      --transition-speed: 0.3s;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
       font-family: var(--font-main);
       background-color: var(--bg-color);
       color: var(--text-color);
+      overflow-x: hidden;
+      transition: all var(--transition-speed) ease;
     }
 
+    /* Header Styles */
     header {
-      background-color: var(--accent-color);
+      background-color: var(--dark-bg);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 30px;
+      padding: 15px 30px;
       position: sticky;
       top: 0;
       z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
 
     .logo {
       display: flex;
       align-items: center;
+      gap: 10px;
     }
 
     .logo img {
       height: 40px;
-      margin-right: 10px;
     }
 
     .logo h1 {
       margin: 0;
       font-size: 24px;
+      font-weight: 700;
     }
 
     .logo span {
       color: var(--primary-color);
     }
 
+    .search-bar {
+      flex-grow: 1;
+      max-width: 500px;
+      margin: 0 30px;
+      position: relative;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 10px 15px;
+      border-radius: 25px;
+      border: none;
+      background-color: var(--accent-color);
+      color: var(--text-color);
+      font-size: 14px;
+      padding-left: 40px;
+    }
+
+    .search-bar i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+
     nav ul {
       list-style: none;
       display: flex;
-      gap: 20px;
+      gap: 25px;
       padding: 0;
       margin: 0;
     }
@@ -62,24 +103,194 @@
     nav a {
       text-decoration: none;
       color: var(--text-color);
-      font-weight: bold;
+      font-weight: 600;
+      font-size: 15px;
+      transition: color var(--transition-speed);
+      position: relative;
     }
 
     nav a:hover {
       color: var(--primary-color);
     }
 
-    .subscribe-btn a {
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
       background-color: var(--primary-color);
-      padding: 8px 16px;
-      border-radius: 4px;
-      color: white;
-      text-decoration: none;
+      transition: width var(--transition-speed);
     }
 
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .subscribe-btn a {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      padding: 10px 20px;
+      border-radius: 25px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+    }
+
+    .subscribe-btn a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-color);
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: var(--sidebar-width);
+      height: 100vh;
+      background-color: var(--dark-bg);
+      z-index: 999;
+      transition: left var(--transition-speed);
+      overflow-y: auto;
+      box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar.active {
+      left: 0;
+    }
+
+    .sidebar-header {
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar-header h3 {
+      color: var(--primary-color);
+      font-size: 18px;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 22px;
+      cursor: pointer;
+      transition: color var(--transition-speed);
+    }
+
+    .close-btn:hover {
+      color: var(--primary-color);
+    }
+
+    .sidebar-menu {
+      padding: 20px 0;
+    }
+
+    .sidebar-menu h4 {
+      color: var(--text-muted);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 0 20px 10px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar-menu ul {
+      list-style: none;
+    }
+
+    .sidebar-menu li a {
+      display: block;
+      padding: 12px 20px;
+      color: var(--text-color);
+      text-decoration: none;
+      transition: all var(--transition-speed);
+      font-size: 15px;
+    }
+
+    .sidebar-menu li a:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+      color: var(--primary-color);
+      padding-left: 25px;
+    }
+
+    .sidebar-menu li a i {
+      margin-right: 10px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .sidebar-footer {
+      padding: 20px;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar-social {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .sidebar-social a {
+      color: var(--text-muted);
+      font-size: 18px;
+      transition: color var(--transition-speed);
+    }
+
+    .sidebar-social a:hover {
+      color: var(--primary-color);
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 998;
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--transition-speed);
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Main Content Styles */
+    .main-content {
+      margin-left: 0;
+      transition: margin-left var(--transition-speed);
+    }
+
+    .main-content.shifted {
+      margin-left: var(--sidebar-width);
+    }
+
+    /* Hero Section */
     .hero {
       background: url('https://cdn.wallpapersafari.com/89/35/UlSkHw.jpg') no-repeat center center/cover;
-      height: 80vh;
+      height: 90vh;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -92,18 +303,22 @@
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
+      background: linear-gradient(135deg, rgba(30, 30, 47, 0.9), rgba(47, 53, 66, 0.8));
     }
 
     .hero-content {
       position: relative;
       z-index: 1;
       color: white;
+      max-width: 800px;
+      padding: 0 20px;
     }
 
     .hero h2 {
-      font-size: 48px;
+      font-size: 3.5rem;
       margin: 0 0 20px;
+      line-height: 1.2;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
 
     .hero span {
@@ -111,176 +326,566 @@
     }
 
     .hero p {
-      font-size: 20px;
+      font-size: 1.25rem;
       margin-bottom: 30px;
+      opacity: 0.9;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
     }
 
     .social-icons a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
       font-size: 24px;
-      margin: 0 10px;
       color: white;
+      transition: all var(--transition-speed);
     }
 
     .social-icons a:hover {
-      color: var(--primary-color);
+      background-color: var(--primary-color);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
     }
 
+    /* Featured Videos */
     .section-title {
       text-align: center;
-      font-size: 32px;
-      margin: 40px 0 20px;
-      color: var(--primary-color);
+      font-size: 2.5rem;
+      margin: 60px 0 30px;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      margin: 15px auto 0;
+      border-radius: 2px;
     }
 
     .video-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      padding: 0 20px 40px;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 25px;
+      padding: 0 30px 50px;
     }
 
-    .video-grid iframe {
-      width: 100%;
-      height: 200px;
-      border: none;
-      border-radius: 8px;
-    }
-
-    .stream-section {
+    .video-card {
       background-color: var(--accent-color);
-      padding: 40px 20px;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .video-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .video-card iframe {
+      width: 100%;
+      height: 180px;
+      border: none;
+      display: block;
+    }
+
+    .video-info {
+      padding: 15px;
+    }
+
+    .video-info h3 {
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+
+    .video-info p {
+      color: var(--text-muted);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .video-info i {
+      color: var(--primary-color);
+    }
+
+    /* Stream Section */
+    .stream-section {
+      background-color: var(--dark-bg);
+      padding: 60px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stream-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+      opacity: 0.1;
+      z-index: 0;
     }
 
     .stream-schedule {
       display: flex;
       justify-content: center;
+      position: relative;
+      z-index: 1;
     }
 
     .stream-card {
-      background-color: var(--bg-color);
-      padding: 20px;
-      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(47, 53, 66, 0.9), rgba(30, 30, 47, 0.9));
+      padding: 30px;
+      border-radius: 15px;
       text-align: center;
       width: 100%;
-      max-width: 400px;
+      max-width: 500px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
     }
 
     .stream-card h3 {
       margin-top: 0;
       color: var(--primary-color);
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .game-title {
+      font-size: 20px;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .stream-time {
+      font-size: 18px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
     }
 
     .countdown {
-      font-size: 20px;
-      margin-top: 10px;
+      font-size: 24px;
+      margin: 20px 0;
+      font-family: monospace;
+      color: var(--primary-color);
+      font-weight: bold;
     }
 
     .notify-btn {
       margin-top: 20px;
-      padding: 10px 20px;
-      background-color: var(--primary-color);
+      padding: 12px 30px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
       border: none;
-      border-radius: 5px;
+      border-radius: 30px;
       color: white;
       cursor: pointer;
+      font-weight: 600;
+      font-size: 16px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
     }
 
+    .notify-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
+    }
+
+    /* About Section */
     .about-section {
-      padding: 40px 20px;
+      padding: 60px 20px;
+      background-color: var(--bg-color);
     }
 
     .about-content {
       display: flex;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 40px;
       justify-content: center;
       align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .about-text {
       flex: 1;
-      min-width: 280px;
+      min-width: 300px;
     }
 
     .about-text p {
       font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      color: var(--text-muted);
+    }
+
+    .gaming-setup {
+      margin-top: 30px;
+    }
+
+    .gaming-setup h3 {
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-size: 22px;
     }
 
     .gaming-setup ul {
-      padding-left: 20px;
+      list-style: none;
+    }
+
+    .gaming-setup li {
+      padding: 8px 0;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+    }
+
+    .gaming-setup li::before {
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      color: var(--primary-color);
+      margin-right: 10px;
     }
 
     .about-image {
       flex: 1;
-      min-width: 280px;
+      min-width: 300px;
+      position: relative;
     }
 
     .about-image img {
       width: 100%;
-      border-radius: 10px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: transform var(--transition-speed);
     }
 
+    .about-image:hover img {
+      transform: scale(1.02);
+    }
+
+    .about-image::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 3px solid var(--primary-color);
+      border-radius: 15px;
+      top: 15px;
+      left: 15px;
+      z-index: -1;
+      transition: all var(--transition-speed);
+    }
+
+    .about-image:hover::before {
+      top: 10px;
+      left: 10px;
+    }
+
+    /* Footer */
     footer {
-      background-color: var(--accent-color);
+      background-color: var(--dark-bg);
       color: var(--text-color);
-      padding: 40px 20px 20px;
+      padding: 60px 20px 20px;
+      position: relative;
     }
 
     .footer-content {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      gap: 20px;
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-logo {
+      flex: 1;
+      min-width: 250px;
     }
 
     .footer-logo h2 {
-      margin-bottom: 10px;
+      margin-bottom: 15px;
+      font-size: 24px;
     }
 
     .footer-logo span {
       color: var(--primary-color);
     }
 
+    .footer-logo p {
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .footer-links {
+      min-width: 150px;
+    }
+
+    .footer-links h3 {
+      margin-bottom: 20px;
+      font-size: 18px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-links h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background-color: var(--primary-color);
+    }
+
     .footer-links ul {
       list-style: none;
-      padding: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
     }
 
     .footer-links a {
       text-decoration: none;
-      color: var(--text-color);
-      display: block;
-      margin: 5px 0;
+      color: var(--text-muted);
+      transition: color var(--transition-speed);
+      display: inline-block;
     }
 
     .footer-links a:hover {
       color: var(--primary-color);
+      transform: translateX(5px);
+    }
+
+    .footer-contact h3 {
+      margin-bottom: 20px;
+      font-size: 18px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-contact h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background-color: var(--primary-color);
+    }
+
+    .footer-contact p {
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-contact i {
+      color: var(--primary-color);
+      width: 20px;
     }
 
     .copyright {
       text-align: center;
-      margin-top: 20px;
+      margin-top: 60px;
       font-size: 14px;
+      color: var(--text-muted);
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all var(--transition-speed);
+      box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
+      z-index: 99;
+    }
+
+    .back-to-top.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(255, 71, 87, 0.4);
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 1024px) {
+      .hero h2 {
+        font-size: 2.8rem;
+      }
+      
+      .section-title {
+        font-size: 2.2rem;
+      }
     }
 
     @media (max-width: 768px) {
-      .hero h2 {
-        font-size: 32px;
+      .menu-toggle {
+        display: block;
       }
+      
+      nav ul {
+        display: none;
+      }
+      
+      .search-bar {
+        margin: 0 15px;
+      }
+      
+      .hero h2 {
+        font-size: 2.2rem;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
+      }
+      
+      .section-title {
+        font-size: 1.8rem;
+      }
+      
+      .video-grid {
+        grid-template-columns: 1fr;
+        padding: 0 20px 40px;
+      }
+      
+      .about-content {
+        flex-direction: column;
+      }
+      
+      .about-text, .about-image {
+        min-width: 100%;
+      }
+    }
 
+    @media (max-width: 576px) {
+      header {
+        padding: 15px;
+      }
+      
+      .logo h1 {
+        font-size: 20px;
+      }
+      
+      .subscribe-btn a {
+        padding: 8px 15px;
+        font-size: 14px;
+      }
+      
+      .hero h2 {
+        font-size: 1.8rem;
+      }
+      
+      .hero p {
+        font-size: 1rem;
+      }
+      
+      .social-icons a {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
+      
       .stream-card {
-        width: 90%;
+        padding: 20px;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        gap: 30px;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h3>J4JE Gamer</h3>
+      <button class="close-btn">&times;</button>
+    </div>
+    <div class="sidebar-menu">
+      <h4>Menu</h4>
+      <ul>
+        <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="#videos"><i class="fas fa-play-circle"></i> Videos</a></li>
+        <li><a href="#stream"><i class="fas fa-stream"></i> Live Stream</a></li>
+        <li><a href="#about"><i class="fas fa-user"></i> About</a></li>
+      </ul>
+      
+      <h4>Categories</h4>
+      <ul>
+        <li><a href="#"><i class="fas fa-gamepad"></i> Gameplay</a></li>
+        <li><a href="#"><i class="fas fa-video"></i> Tutorials</a></li>
+        <li><a href="#"><i class="fas fa-trophy"></i> Competitions</a></li>
+        <li><a href="#"><i class="fas fa-microphone"></i> Podcast</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-footer">
+      <p>Follow me on social media</p>
+      <div class="sidebar-social">
+        <a href="https://youtube.com/@j4jegamer" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="https://t.me/j4jegamer" target="_blank"><i class="fab fa-telegram"></i></a>
+        <a href="#"><i class="fab fa-discord"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Overlay -->
+  <div class="overlay"></div>
 
   <!-- Header -->
   <header>
+    <button class="menu-toggle">
+      <i class="fas fa-bars"></i>
+    </button>
     <div class="logo">
-      <img src="assets/images/logo.png" alt="Logo" />
+      <img src="assets/images/logo.png" alt="J4JE Gamer Logo" />
       <h1><span>J4JE</span> Gamer</h1>
+    </div>
+    <div class="search-bar">
+      <i class="fas fa-search"></i>
+      <input type="text" placeholder="Search videos, streams..." />
     </div>
     <nav>
       <ul>
@@ -295,95 +900,171 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero" id="home">
-    <div class="hero-content">
-      <h2>Welcome to <span>J4JE Gamer</span></h2>
-      <p>Your one-stop destination for epic gaming streams and videos!</p>
-      <div class="social-icons">
-        <a href="https://youtube.com/@j4jegamer" target="_blank"><i class="fab fa-youtube"></i></a>
-        <a href="https://t.me/j4jegamer" target="_blank"><i class="fab fa-telegram"></i></a>
-        <a href="#"><i class="fab fa-discord"></i></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Featured Videos -->
-  <section class="featured-videos" id="videos">
-    <h2 class="section-title">Featured Videos</h2>
-    <div class="video-grid"></div>
-  </section>
-
-  <!-- Stream Section -->
-  <section class="stream-section" id="stream">
-    <h2 class="section-title">Upcoming Stream</h2>
-    <div class="stream-schedule">
-      <div class="stream-card">
-        <h3>Stream Schedule</h3>
-        <p class="game-title">Game Loading...</p>
-        <p class="stream-time">Time Loading...</p>
-        <div class="countdown" id="countdown1">Loading countdown...</div>
-        <button class="notify-btn">Notify Me</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <section class="about-section" id="about">
-    <h2 class="section-title">About J4JE Gamer</h2>
-    <div class="about-content">
-      <div class="about-text">
-        <p>
-          I'm J4JE Gamer, a passionate streamer and content creator. I bring you exciting gameplay, tutorials, and lots of fun! Subscribe and join my gaming community.
-        </p>
-        <div class="gaming-setup">
-          <h3>My Gaming Setup:</h3>
-          <ul>
-            <li>Processor: Ryzen 7 5800X</li>
-            <li>GPU: NVIDIA RTX 3070</li>
-            <li>Monitor: 144Hz Gaming Monitor</li>
-            <li>Keyboard: Mechanical RGB</li>
-          </ul>
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <h2>Welcome to <span>J4JE Gamer</span></h2>
+        <p>Your ultimate destination for epic gaming streams, tutorials, and entertainment!</p>
+        <div class="social-icons">
+          <a href="https://youtube.com/@j4jegamer" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://t.me/j4jegamer" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
+          <a href="#" title="Discord"><i class="fab fa-discord"></i></a>
+          <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
         </div>
       </div>
-      <div class="about-image">
-        <img src="assets/images/setup.jpg" alt="Gaming Setup" />
+    </section>
+
+    <!-- Featured Videos -->
+    <section class="featured-videos" id="videos">
+      <h2 class="section-title">Featured Videos</h2>
+      <div class="video-grid">
+        <!-- Videos will be loaded from Firebase -->
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- Stream Section -->
+    <section class="stream-section" id="stream">
+      <h2 class="section-title">Upcoming Stream</h2>
+      <div class="stream-schedule">
+        <div class="stream-card">
+          <h3>Stream Schedule</h3>
+          <p class="game-title">Game Loading...</p>
+          <p class="stream-time">Time Loading...</p>
+          <div class="countdown" id="countdown1">Loading countdown...</div>
+          <button class="notify-btn">Notify Me</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+      <h2 class="section-title">About J4JE Gamer</h2>
+      <div class="about-content">
+        <div class="about-text">
+          <p>
+            Hey gamers! I'm J4JE, a passionate content creator and streamer dedicated to bringing you the best gaming experiences. Whether it's intense gameplay, helpful tutorials, or just having fun, my channel is all about building an awesome gaming community.
+          </p>
+          <p>
+            I've been gaming since childhood and started creating content to share my passion with others. My goal is to entertain, educate, and connect with fellow gamers around the world.
+          </p>
+          <div class="gaming-setup">
+            <h3>My Gaming Setup:</h3>
+            <ul>
+              <li>Processor: Ryzen 7 5800X</li>
+              <li>GPU: NVIDIA RTX 3070</li>
+              <li>RAM: 32GB DDR4 3600MHz</li>
+              <li>Monitor: 144Hz Gaming Monitor</li>
+              <li>Keyboard: Mechanical RGB</li>
+              <li>Mouse: Gaming Mouse with 16000 DPI</li>
+              <li>Headset: Wireless Gaming Headset</li>
+            </ul>
+          </div>
+        </div>
+        <div class="about-image">
+          <img src="assets/images/setup.jpg" alt="J4JE Gamer Setup" />
+        </div>
+      </div>
+    </section>
+  </main>
 
   <!-- Footer -->
   <footer>
     <div class="footer-content">
       <div class="footer-logo">
         <h2><span>J4JE</span> Gamer</h2>
-        <p>Join the journey. Play hard, stream harder.</p>
+        <p>Join me on this exciting gaming journey. Whether you're here to learn, compete, or just have fun, there's something for every gamer.</p>
       </div>
       <div class="footer-links">
         <h3>Quick Links</h3>
         <ul>
           <li><a href="#home">Home</a></li>
           <li><a href="#videos">Videos</a></li>
-          <li><a href="#stream">Stream</a></li>
-          <li><a href="#about">About</a></li>
+          <li><a href="#stream">Stream Schedule</a></li>
+          <li><a href="#about">About Me</a></li>
+          <li><a href="#">Merchandise</a></li>
+          <li><a href="#">Community</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h3>Categories</h3>
+        <ul>
+          <li><a href="#">Gameplay</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">Reviews</a></li>
+          <li><a href="#">Live Streams</a></li>
+          <li><a href="#">Esports</a></li>
+          <li><a href="#">Behind the Scenes</a></li>
         </ul>
       </div>
       <div class="footer-contact">
-        <h3>Contact</h3>
-        <p>Email: j4jegamer@gmail.com</p>
-        <p>Telegram: @j4jegamer</p>
+        <h3>Contact Me</h3>
+        <p><i class="fas fa-envelope"></i> j4jegamer@gmail.com</p>
+        <p><i class="fab fa-telegram"></i> @j4jegamer</p>
+        <p><i class="fas fa-map-marker-alt"></i> Gaming Studio, Internet</p>
       </div>
     </div>
     <div class="copyright">
-      &copy; 2025 J4JE Gamer. All rights reserved.
+      &copy; 2025 J4JE Gamer. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--primary-color);"></i> for gamers
     </div>
   </footer>
+
+  <!-- Back to Top Button -->
+  <div class="back-to-top">
+    <i class="fas fa-arrow-up"></i>
+  </div>
 
   <!-- Firebase & JS -->
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
+      // Sidebar Toggle
+      const menuToggle = document.querySelector('.menu-toggle');
+      const closeBtn = document.querySelector('.close-btn');
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.querySelector('.overlay');
+      const mainContent = document.querySelector('.main-content');
+
+      menuToggle.addEventListener('click', function() {
+        sidebar.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+
+      closeBtn.addEventListener('click', function() {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+
+      overlay.addEventListener('click', function() {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+
+      // Back to Top Button
+      const backToTopBtn = document.querySelector('.back-to-top');
+      
+      window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+          backToTopBtn.classList.add('active');
+        } else {
+          backToTopBtn.classList.remove('active');
+        }
+      });
+      
+      backToTopBtn.addEventListener('click', function() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+
+      // Firebase Configuration
       const firebaseConfig = {
         apiKey: "AIzaSyDgD-ynQPGTF9W9C1pbguZjWhUbj6-ZcYQ",
         authDomain: "j4jegamer.firebaseapp.com",
@@ -397,29 +1078,37 @@
       firebase.initializeApp(firebaseConfig);
       const db = firebase.database();
 
+      // Load Videos
       const videoGrid = document.querySelector('.video-grid');
       db.ref('videos').on('value', (snapshot) => {
         videoGrid.innerHTML = '';
         snapshot.forEach((child) => {
-          const { url } = child.val();
-          const iframe = document.createElement('iframe');
-          iframe.src = url;
-          iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-          iframe.allowFullscreen = true;
-          videoGrid.appendChild(iframe);
+          const { url, title, views, date } = child.val();
+          const videoCard = document.createElement('div');
+          videoCard.className = 'video-card';
+          videoCard.innerHTML = `
+            <iframe src="${url}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <div class="video-info">
+              <h3>${title || 'Awesome Gameplay'}</h3>
+              <p><i class="fas fa-eye"></i> ${views || '10K'} views • ${date || '2 days ago'}</p>
+            </div>
+          `;
+          videoGrid.appendChild(videoCard);
         });
       });
 
+      // Load Stream Info
       const gameTitle = document.querySelector('.game-title');
       const streamTime = document.querySelector('.stream-time');
       const countdownEl = document.getElementById('countdown1');
+      const notifyBtn = document.querySelector('.notify-btn');
 
       db.ref('streams/stream1').on('value', (snapshot) => {
         const data = snapshot.val();
         if (data) {
-          gameTitle.textContent = data.game;
-          streamTime.textContent = data.time;
-          startCountdown(data.time);
+          gameTitle.textContent = data.game || 'Valorant Tournament';
+          streamTime.textContent = data.time || 'Today at 8:00 PM GMT';
+          startCountdown(data.time || new Date(Date.now() + 86400000).toString());
         }
       });
 
@@ -428,19 +1117,42 @@
         const update = () => {
           const now = new Date().getTime();
           const distance = targetDate - now;
+          
           if (distance < 0) {
-            countdownEl.textContent = "Stream started!";
+            countdownEl.textContent = "Stream is live now!";
+            countdownEl.style.color = "var(--primary-color)";
             return;
           }
+          
           const d = Math.floor(distance / (1000 * 60 * 60 * 24));
           const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
           const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
           const s = Math.floor((distance % (1000 * 60)) / 1000);
+          
           countdownEl.textContent = `${d}d ${h}h ${m}m ${s}s`;
         };
         update();
         setInterval(update, 1000);
       }
+
+      // Notify Button
+      notifyBtn.addEventListener('click', function() {
+        this.textContent = 'Notification Set!';
+        this.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
+        setTimeout(() => {
+          this.textContent = 'Notify Me';
+          this.style.background = 'linear-gradient(135deg, var(--primary-color), var(--secondary-color))';
+        }, 2000);
+      });
+
+      // Search Functionality
+      const searchInput = document.querySelector('.search-bar input');
+      searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          alert(`Searching for: ${this.value}`);
+          this.value = '';
+        }
+      });
     });
   </script>
 </body>
